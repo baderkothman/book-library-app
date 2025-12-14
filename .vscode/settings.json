@@ -1,0 +1,15 @@
+{
+  "sqltools.connections": [
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "book_library_local",
+      "database": "book_library",
+      "username": "postgres",
+      "password": "bader2112"
+    }
+  ]
+}
