@@ -7,8 +7,7 @@ import {
   Pressable,
   StyleSheet,
 } from "react-native";
-
-const API = "http://localhost:4000";
+import { API_BASE_URL } from "../config/api";
 
 type Category = { id: number; name: string };
 type Book = {
@@ -36,7 +35,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     (async () => {
-      const r = await fetch(`${API}/categories`);
+      const r = await fetch(`${API_BASE_URL}/categories`);
       setCategories(await r.json());
     })();
   }, []);
@@ -45,7 +44,7 @@ export default function HomeScreen() {
     const t = setTimeout(async () => {
       setLoading(true);
       try {
-        const r = await fetch(`${API}/books?${query}`);
+        const r = await fetch(`${API_BASE_URL}/books?${query}`);
         setBooks(await r.json());
       } finally {
         setLoading(false);

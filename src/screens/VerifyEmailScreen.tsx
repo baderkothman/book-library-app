@@ -8,8 +8,7 @@ import {
   Alert,
 } from "react-native";
 import * as Linking from "expo-linking";
-
-const API = "http://localhost:4000"; // change when you test on phone (use your PC IP)
+import { API_BASE_URL } from "../config/api";
 
 export default function VerifyEmailScreen() {
   const [token, setToken] = useState("");
@@ -17,7 +16,8 @@ export default function VerifyEmailScreen() {
 
   // If user opens email deep link: booklibraryapp://verify?token=...
   useEffect(() => {
-    const sub = Linking.addEventListener("url", ({ url }) => {
+    const sub = Linking.addEventListener("url", (event: { url: string }) => {
+      const url = event.url;
       const parsed = Linking.parse(url);
       const t = (parsed.queryParams?.token as string) || "";
       if (t) setToken(t);
@@ -40,7 +40,7 @@ export default function VerifyEmailScreen() {
       return Alert.alert("Missing", "Paste the token from your email.");
     setLoading(true);
     try {
-      const res = await fetch(`${API}/auth/verify`, {
+      const res = await fetch(`${API_BASE_URL}/auth/verify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: token.trim() }),
